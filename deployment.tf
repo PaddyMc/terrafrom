@@ -1,22 +1,23 @@
 resource "kubernetes_namespace" "hhh" {
   metadata {
     annotations = {
-      name = "go-apis"
+      name = "${var.namespace}"
     }
 
     labels = {
-      mylabel = "go-api"
+      mylabel = "${var.namespace}"
     }
 
-    name = "go-apis"
+    name = "${var.namespace}"
   }
 }
 
-resource "kubernetes_deployment" "api" {
+resource "kubernetes_deployment" "new_app" {
   metadata {
-    name = "blockchain-api"
+    name = "${var.deployment_name}"
+    namespace = "go-apis"
     labels = {
-      test = "EthereumScraper"
+      test = "${var.deployment_name}-blockchain-data"
     }
   }
 
@@ -25,32 +26,26 @@ resource "kubernetes_deployment" "api" {
 
     selector {
       match_labels = {
-        test = "EthereumScraper"
+        test = "${var.deployment_name}-blockchain-data"
       }
     }
 
     template {
       metadata {
         labels = {
-          test = "EthereumScraper"
+          test = "${var.deployment_name}-blockchain-data"
         }
       }
 
       spec {
         container {
-          image = "${var.dockerimage}"
-          name  = "go-ethereum"
+          image = "${var.docker_image}"
+          name  = "${var.deployment_name}-blockchain-data"
         }
       }
     }
   }
 }
-
-
-data "digitalocean_ssh_key" "bbk" {
-  name = "bbk"
-}
-
 output "ip_address" {
-  value = "${kubernetes_deployment.api}"
+  value = "${kubernetes_deployment.new_app}"
 }
