@@ -1,21 +1,21 @@
-resource "kubernetes_namespace" "hhh" {
-  metadata {
-    annotations = {
-      name = "${var.namespace}"
-    }
+# resource "kubernetes_namespace" "hhh" {
+#   metadata {
+#     annotations = {
+#       name = "${var.namespace}"
+#     }
 
-    labels = {
-      mylabel = "${var.namespace}"
-    }
+#     labels = {
+#       mylabel = "${var.namespace}"
+#     }
 
-    name = "${var.namespace}"
-  }
-}
+#     name = "${var.namespace}"
+#   }
+# }
 
 resource "kubernetes_deployment" "new_app" {
   metadata {
     name = "${var.deployment_name}"
-    namespace = "go-apis"
+    # namespace = "go-apis"
     labels = {
       test = "${var.deployment_name}-blockchain-data"
     }
@@ -47,5 +47,5 @@ resource "kubernetes_deployment" "new_app" {
   }
 }
 output "ip_address" {
-  value = "${kubernetes_deployment.new_app}"
+  value = "${kubernetes_deployment.new_app.id}"
 }
