@@ -15,7 +15,7 @@ resource "kubernetes_namespace" "hhh" {
 resource "kubernetes_deployment" "new_app" {
   metadata {
     name = "${var.deployment_name}"
-    # namespace = "go-apis"
+    namespace = "${var.namespace}"
     labels = {
       test = "${var.deployment_name}-blockchain-data"
     }

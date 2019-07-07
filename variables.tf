@@ -5,7 +5,7 @@ variable "docker_image" {
 }
 
 variable "deployment_name" {
-  default = "default-deployment"
+  default = "last-deployment"
 }
 
 variable "namespace" {
