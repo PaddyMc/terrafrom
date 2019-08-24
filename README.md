@@ -19,10 +19,10 @@ export PG_URI=postgresql://<name>:<pw>@<host>:<port>/terraform_backend?sslmode=r
 
 - Deploy service on each pod
 ```shell
-./deploy.sh
+make deploy
 ```
 
 - Destroy service
 ```shell
-./destroy.sh
+make destroy
 ```
